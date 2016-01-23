@@ -1,5 +1,6 @@
 package com.fakecardinalchingones.buttonclickcounter;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,25 +9,45 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    //create a button
+    private Button ourButton;
+    private TextView ourMessage;
+    private int numTimesClicked = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //add the views to the activity
+       ourButton = (Button) findViewById(R.id.mybutt);
+        ourMessage = (TextView) findViewById(R.id.textView);
+
+
+        View.OnClickListener ourOnClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                numTimesClicked = numTimesClicked + 1;
+                String total = Integer.toString(numTimesClicked);
+                String result = "The button got clicked " + total + " time";
+                if(numTimesClicked==1){
+                    ourMessage.setText(result);
+                }else{
+                    ourMessage.setText(result + "s");
+                }
+            }
+        };
+
+        //link button to onclicklistener
+            ourButton.setOnClickListener(ourOnClickListener);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
     }
 
     @Override
@@ -48,8 +69,9 @@ public class MainActivity extends AppCompatActivity {
 
 //this is used to display a text message when the three little dots (settings) are touched.
 
-            Toast toastMessage = Toast.makeText(this,"The setting menu option get tapped",Toast.LENGTH_LONG);
+            Toast toastMessage = Toast.makeText(this,"Text value is now " + ourMessage.getText(),Toast.LENGTH_LONG);
             toastMessage.show();//this calls the message
+            numTimesClicked = 0;
             return true;
         }
 
