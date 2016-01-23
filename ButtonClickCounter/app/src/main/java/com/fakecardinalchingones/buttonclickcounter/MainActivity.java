@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +45,11 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
+//this is used to display a text message when the three little dots (settings) are touched.
+
+            Toast toastMessage = Toast.makeText(this,"The setting menu option get tapped",Toast.LENGTH_LONG);
+            toastMessage.show();//this calls the message
             return true;
         }
 
